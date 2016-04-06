@@ -13,7 +13,7 @@
 
 
 /// The `extras' payload as specified in the `al_applink_data' payload. Default is empty.
-@property (nonatomic, copy, readwrite) NSMutableDictionary *extras;
+@property (nonatomic, copy, readwrite) NSMutableDictionary<NSString *, NSString *> *extras;
 
 
 /// The `user_agent' as specified in the `al_applink_data' payload.

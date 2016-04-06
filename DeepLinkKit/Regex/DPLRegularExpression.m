@@ -26,7 +26,7 @@ static NSString * const DPLURLParameterPattern        = @"([^/]+)";
 
 
 - (DPLMatchResult *)matchResultForString:(NSString *)str {
-    NSArray *matches = [self matchesInString:str options:0 range:NSMakeRange(0, str.length)];
+    NSArray<NSTextCheckingResult *> *matches = [self matchesInString:str options:0 range:NSMakeRange(0, str.length)];
     DPLMatchResult *matchResult = [[DPLMatchResult alloc] init];
     
     if (!matches.count) {
@@ -34,9 +34,9 @@ static NSString * const DPLURLParameterPattern        = @"([^/]+)";
     }
     
     matchResult.match = YES;
-    
+
     // Set route parameters in the routeParameters dictionary
-    NSMutableDictionary *routeParameters = [NSMutableDictionary dictionary];
+    NSMutableDictionary<NSString *, NSString *> *routeParameters = [NSMutableDictionary dictionary];
     for (NSTextCheckingResult *result in matches) {
         // Begin at 1 as first range is the whole match
         for (NSInteger i = 1; i < result.numberOfRanges && i <= self.groupNames.count; i++) {
@@ -53,15 +53,15 @@ static NSString * const DPLURLParameterPattern        = @"([^/]+)";
 
 #pragma mark - Named Group Helpers
 
-+ (NSArray *)namedGroupTokensForString:(NSString *)str {
++ (NSArray<NSString *> *)namedGroupTokensForString:(NSString *)str {
     NSRegularExpression *componentRegex = [NSRegularExpression regularExpressionWithPattern:DPLNamedGroupComponentPattern
                                                                                     options:0
                                                                                       error:nil];
-    NSArray *matches = [componentRegex matchesInString:str
-                                               options:0
-                                                 range:NSMakeRange(0, str.length)];
+    NSArray<NSTextCheckingResult *> *matches = [componentRegex matchesInString:str
+                                                                       options:0
+                                                                         range:NSMakeRange(0, str.length)];
     
-    NSMutableArray *namedGroupTokens = [NSMutableArray array];
+    NSMutableArray<NSString *> *namedGroupTokens = [NSMutableArray array];
     for (NSTextCheckingResult *result in matches) {
         NSString *namedGroupToken = [str substringWithRange:result.range];
         [namedGroupTokens addObject:namedGroupToken];
@@ -73,7 +73,7 @@ static NSString * const DPLURLParameterPattern        = @"([^/]+)";
 + (NSString *)stringByRemovingNamedGroupsFromString:(NSString *)str {
     NSString *modifiedStr = [str copy];
     
-    NSArray *namedGroupExpressions = [self namedGroupTokensForString:str];
+    NSArray<NSString *> *namedGroupExpressions = [self namedGroupTokensForString:str];
     NSRegularExpression *parameterRegex = [NSRegularExpression regularExpressionWithPattern:DPLRouteParameterPattern
                                                                                     options:0
                                                                                       error:nil];
@@ -108,18 +108,18 @@ static NSString * const DPLURLParameterPattern        = @"([^/]+)";
 }
 
 
-+ (NSArray *)namedGroupsForString:(NSString *)str {
-    NSMutableArray *groupNames = [NSMutableArray array];
++ (NSArray<NSString *> *)namedGroupsForString:(NSString *)str {
+    NSMutableArray<NSString *> *groupNames = [NSMutableArray array];
     
-    NSArray *namedGroupExpressions = [self namedGroupTokensForString:str];
+    NSArray<NSString *> *namedGroupExpressions = [self namedGroupTokensForString:str];
     NSRegularExpression *parameterRegex = [NSRegularExpression regularExpressionWithPattern:DPLRouteParameterPattern
                                                                                     options:0
                                                                                       error:nil];
     
     for (NSString *namedExpression in namedGroupExpressions) {
-        NSArray *componentMatches             = [parameterRegex matchesInString:namedExpression
-                                                                        options:0
-                                                                          range:NSMakeRange(0, namedExpression.length)];
+        NSArray<NSTextCheckingResult *> *componentMatches = [parameterRegex matchesInString:namedExpression
+                                                                                    options:0
+                                                                                      range:NSMakeRange(0, namedExpression.length)];
         NSTextCheckingResult *foundGroupName = [componentMatches firstObject];
         if (foundGroupName) {
             NSString *stringToReplace  = [namedExpression substringWithRange:foundGroupName.range];

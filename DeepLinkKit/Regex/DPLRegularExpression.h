@@ -3,7 +3,7 @@
 
 @interface DPLRegularExpression : NSRegularExpression
 
-@property (nonatomic, strong) NSArray *groupNames;
+@property (nonatomic, strong) NSArray<NSString *> *groupNames;
 
 + (instancetype)regularExpressionWithPattern:(NSString *)pattern;
 

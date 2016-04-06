@@ -25,7 +25,7 @@
 
 
 /// The query URL component as a mutable dictionary. Default is empty.
-@property (nonatomic, copy, readwrite) NSMutableDictionary *queryParameters;
+@property (nonatomic, copy, readwrite) NSMutableDictionary<NSString *, NSObject *> *queryParameters;
 
 
 /// A URL object derived from the mutable deep link components.

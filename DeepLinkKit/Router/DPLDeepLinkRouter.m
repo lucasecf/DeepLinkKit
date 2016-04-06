@@ -9,9 +9,9 @@
 
 @property (nonatomic, copy) DPLApplicationCanHandleDeepLinksBlock applicationCanHandleDeepLinksBlock;
 
-@property (nonatomic, strong) NSMutableOrderedSet *routes;
-@property (nonatomic, strong) NSMutableDictionary *classesByRoute;
-@property (nonatomic, strong) NSMutableDictionary *blocksByRoute;
+@property (nonatomic, strong) NSMutableOrderedSet<NSString *> *routes;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, __kindof Class <DPLRouteHandler> > *classesByRoute;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, DPLRouteHandlerBlock> *blocksByRoute;
 
 @end
 
@@ -127,7 +127,7 @@
     }
     
     if (!deepLink) {
-        NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The passed URL does not match a registered route.", nil) };
+        NSDictionary<NSString *, NSString *> *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The passed URL does not match a registered route.", nil) };
         error = [NSError errorWithDomain:DPLErrorDomain code:DPLRouteNotFoundError userInfo:userInfo];
     }
     
@@ -170,7 +170,7 @@
         }
         else {
             
-            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The matched route handler does not specify a target view controller.", nil)};
+            NSDictionary<NSString *, NSString *> *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The matched route handler does not specify a target view controller.", nil)};
 
             if (error) {
                 *error = [NSError errorWithDomain:DPLErrorDomain code:DPLRouteHandlerTargetNotSpecifiedError userInfo:userInfo];

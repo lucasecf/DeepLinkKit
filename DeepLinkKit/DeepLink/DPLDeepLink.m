@@ -24,8 +24,8 @@ NSString * const DPLJSONEncodedFieldNamesKey = @"dpl:json-encoded-fields";
         _URL             = url;
         _queryParameters = [[_URL query] DPL_parametersFromQueryString];
         
-        NSMutableDictionary *mutableQueryParams = [_queryParameters mutableCopy];
-        NSArray *JSONEncodedFields = [mutableQueryParams[DPLJSONEncodedFieldNamesKey] DPL_decodedJSONObject];
+        NSMutableDictionary<NSString *, NSObject *> *mutableQueryParams = [_queryParameters mutableCopy];
+        NSArray<NSString *> *JSONEncodedFields = [(NSString *)mutableQueryParams[DPLJSONEncodedFieldNamesKey] DPL_decodedJSONObject];
         
         [_queryParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
             if ([JSONEncodedFields containsObject:key]
@@ -41,12 +41,12 @@ NSString * const DPLJSONEncodedFieldNamesKey = @"dpl:json-encoded-fields";
 
 
 - (NSURL *)callbackURL {
-    NSString *URLString = self.queryParameters[DPLCallbackURLKey] ?: self.appLinkData[DPLAppLinksReferrerURLKey];
+    NSString *URLString = (NSString *)(self.queryParameters[DPLCallbackURLKey] ?: self.appLinkData[DPLAppLinksReferrerURLKey]);
     return [NSURL URLWithString:URLString];
 }
 
 
-- (void)setRouteParameters:(NSDictionary *)routeParameters {
+- (void)setRouteParameters:(NSDictionary<NSString *, NSString *> *)routeParameters {
     _routeParameters = routeParameters;
 }
 

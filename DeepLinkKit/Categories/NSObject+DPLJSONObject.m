@@ -69,7 +69,7 @@
         return self;
     }
     
-    NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithDictionary:self];
+    NSMutableDictionary<NSString *, NSObject *> *mutableDictionary = [NSMutableDictionary dictionaryWithDictionary:self];
     
     [self enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         if (![key isKindOfClass:[NSString class]] || [value isEqual:[NSNull null]]) {

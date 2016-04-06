@@ -17,6 +17,6 @@ extern NSString * const DPLJSONEncodedFieldNamesKey;
  @warning Not intended for external consumption.
  @see DPLDeepLinkRouter
  */
-- (void)setRouteParameters:(NSDictionary *)routeParameters;
+- (void)setRouteParameters:(NSDictionary<NSString *, NSString *> *)routeParameters;
 
 @end

@@ -34,7 +34,7 @@
 }
 
 
-- (NSMutableDictionary *)queryParameters {
+- (NSMutableDictionary<NSString *, NSObject *> *)queryParameters {
     if (!_queryParameters) {
         _queryParameters = [NSMutableDictionary dictionary];
     }
@@ -44,9 +44,9 @@
 
 - (NSURL *)URL {
 
-    NSDictionary *cleanParameters          = [self.queryParameters DPL_JSONObject];
-    NSMutableDictionary *mutableParameters = [cleanParameters mutableCopy];
-    NSMutableArray *JSONEncodedFieldNames  = [NSMutableArray array];
+    NSDictionary<NSString *, NSObject *> *cleanParameters = [self.queryParameters DPL_JSONObject];
+    NSMutableDictionary<NSString *, NSObject *> *mutableParameters = [cleanParameters mutableCopy];
+    NSMutableArray<NSString *> *JSONEncodedFieldNames  = [NSMutableArray array];
     
     [cleanParameters enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
         if ([value isKindOfClass:[NSArray class]] || [value isKindOfClass:[NSDictionary class]]) {

@@ -23,7 +23,7 @@
 
 
 /// The `extras' payload as specified in the `al_applink_data' payload.
-@property (nonatomic, copy, readonly) NSDictionary *extras;
+@property (nonatomic, copy, readonly) NSDictionary<NSString *, NSString *> *extras;
 
 
 /// The `version' as specified in the `al_applink_data' payload.

@@ -20,7 +20,7 @@
  Parses the receiver (when formatted as a query string) into an NSDictionary.
  @return An NSDictionary of parameters parsed from the receiver.
  */
-- (NSDictionary *)DPL_parametersFromQueryString;
+- (NSDictionary<NSString *, NSString *> *)DPL_parametersFromQueryString;
 
 
 

@@ -15,13 +15,13 @@
 }
 
 
-- (void)setExtras:(NSMutableDictionary *)extras {
+- (void)setExtras:(NSMutableDictionary<NSString *, NSString *> *)extras {
     self.mutableAppLinkData[DPLAppLinksExtrasKey] = [extras copy] ?: @{};
 }
 
 
-- (NSMutableDictionary *)extras {
-    NSMutableDictionary *extras = self.mutableAppLinkData[DPLAppLinksExtrasKey];
+- (NSMutableDictionary<NSString *, NSString *> *)extras {
+    NSMutableDictionary<NSString *, NSString *> *extras = (NSMutableDictionary<NSString *, NSString *> *)self.mutableAppLinkData[DPLAppLinksExtrasKey];
     if (!extras) {
         extras = [NSMutableDictionary dictionary];
         self.mutableAppLinkData[DPLAppLinksExtrasKey] = extras;
@@ -49,8 +49,8 @@
 
 #pragma mark - Private
 
-- (NSMutableDictionary *)mutableAppLinkData {
-    NSMutableDictionary *data = self.queryParameters[DPLAppLinksDataKey];
+- (NSMutableDictionary<NSString *, NSObject *> *)mutableAppLinkData {
+    NSMutableDictionary<NSString *, NSObject *> *data = (NSMutableDictionary<NSString *, NSObject *> *)self.queryParameters[DPLAppLinksDataKey];
     if (!data) {
         data = [NSMutableDictionary dictionary];
         data[DPLAppLinksVersionKey] = @"1.0";
@@ -60,8 +60,8 @@
 }
 
 
-- (NSMutableDictionary *)mutableReferrerData {
-    NSMutableDictionary *data = self.mutableAppLinkData[DPLAppLinksReferrerAppLinkKey];
+- (NSMutableDictionary<NSString *, NSString *> *)mutableReferrerData {
+    NSMutableDictionary<NSString *, NSString *> *data = (NSMutableDictionary<NSString *, NSString *> *)self.mutableAppLinkData[DPLAppLinksReferrerAppLinkKey];
     if (!data) {
         data = [NSMutableDictionary dictionary];
         self.mutableAppLinkData[DPLAppLinksReferrerAppLinkKey] = data;

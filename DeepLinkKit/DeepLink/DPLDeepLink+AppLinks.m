@@ -12,47 +12,52 @@ NSString * const DPLAppLinksReferrerAppNameKey   = @"app_name";
 
 @implementation DPLDeepLink (AppLinks)
 
-- (NSDictionary *)appLinkData {
-    return self.queryParameters[DPLAppLinksDataKey];
+- (NSDictionary<NSString *, NSObject *> *)appLinkData {
+    return (NSDictionary<NSString *, NSObject *> *)self.queryParameters[DPLAppLinksDataKey];
+}
+
+
+- (NSDictionary<NSString *, NSObject *> *)referrerAppLinkData {
+    return (NSDictionary<NSString *, NSObject *> *)self.appLinkData[DPLAppLinksDataKey];
 }
 
 
 #pragma mark - App Link Properties
 
 - (NSURL *)targetURL {
-    return [NSURL URLWithString:self.appLinkData[DPLAppLinksTargetURLKey]];
+    return [NSURL URLWithString:(NSString *)self.appLinkData[DPLAppLinksTargetURLKey]];
 }
 
 
-- (NSDictionary *)extras {
-    return self.appLinkData[DPLAppLinksExtrasKey];
+- (NSDictionary<NSString *, NSString *> *)extras {
+    return (NSDictionary<NSString *, NSString *> *)self.appLinkData[DPLAppLinksExtrasKey];
 }
 
 
 - (NSString *)version {
-    return self.appLinkData[DPLAppLinksVersionKey];
+    return (NSString *)self.appLinkData[DPLAppLinksVersionKey];
 }
 
 
 - (NSString *)userAgent {
-    return self.appLinkData[DPLAppLinksUserAgentKey];
+    return (NSString *)self.appLinkData[DPLAppLinksUserAgentKey];
 }
 
 
 #pragma mark - Referrer App Link Properties
 
 - (NSURL *)referrerTargetURL {
-    return [NSURL URLWithString:self.appLinkData[DPLAppLinksReferrerAppLinkKey][DPLAppLinksReferrerTargetURLKey]];
+    return [NSURL URLWithString:(NSString *)self.referrerAppLinkData[DPLAppLinksReferrerTargetURLKey]];
 }
 
 
 - (NSURL *)referrerURL {
-    return [NSURL URLWithString:self.appLinkData[DPLAppLinksReferrerAppLinkKey][DPLAppLinksReferrerURLKey]];
+    return [NSURL URLWithString:(NSString *)self.referrerAppLinkData[DPLAppLinksReferrerURLKey]];
 }
 
 
 - (NSString *)referrerAppName {
-    return self.appLinkData[DPLAppLinksReferrerAppLinkKey][DPLAppLinksReferrerAppNameKey];
+    return (NSString *)self.referrerAppLinkData[DPLAppLinksReferrerAppNameKey];
 }
 
 @end

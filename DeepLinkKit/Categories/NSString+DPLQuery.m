@@ -14,11 +14,11 @@
 }
 
 
-- (NSDictionary *)DPL_parametersFromQueryString {
-    NSArray *params = [self componentsSeparatedByString:@"&"];
-    NSMutableDictionary *paramsDict = [NSMutableDictionary dictionaryWithCapacity:[params count]];
+- (NSDictionary<NSString *, NSString *> *)DPL_parametersFromQueryString {
+    NSArray<NSString *> *params = [self componentsSeparatedByString:@"&"];
+    NSMutableDictionary<NSString *, NSString *> *paramsDict = [NSMutableDictionary dictionaryWithCapacity:[params count]];
     for (NSString *param in params) {
-        NSArray *pairs = [param componentsSeparatedByString:@"="];
+        NSArray<NSString *> *pairs = [param componentsSeparatedByString:@"="];
         if (pairs.count == 2) {
             // e.g. ?key=value
             NSString *key   = [pairs[0] DPL_stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
