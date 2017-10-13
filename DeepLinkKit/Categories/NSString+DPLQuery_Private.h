@@ -1,4 +1,4 @@
-#import "NSString+DPLQuery.h"
+@import Foundation;
 
 @interface NSString (DPLQuery_Private)
 
